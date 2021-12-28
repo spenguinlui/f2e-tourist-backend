@@ -16,4 +16,12 @@ Rails.application.config.middleware.insert_before 0, Rack::Cors do
       methods: [:get, :post, :put, :patch, :delete, :options, :head],
       credentials: true
   end
+  allow do
+    origins 'https://spenguinlui.github.io/f2e-tourist-frontend'
+
+    resource '*',
+      headers: :any,
+      methods: [:get, :post, :put, :patch, :delete, :options, :head],
+      credentials: true
+  end
 end
