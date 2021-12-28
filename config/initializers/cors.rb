@@ -9,15 +9,15 @@ Rails.application.config.action_controller.forgery_protection_origin_check = fal
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:8080'
-
+    origins 'https://spenguinlui.github.io/f2e-tourist-frontend'
+    
     resource '*',
-      headers: :any,
-      methods: [:get, :post, :put, :patch, :delete, :options, :head],
-      credentials: true
+    headers: :any,
+    methods: [:get, :post, :put, :patch, :delete, :options, :head],
+    credentials: true
   end
   allow do
-    origins 'https://spenguinlui.github.io/f2e-tourist-frontend'
+    origins 'localhost:8080'
 
     resource '*',
       headers: :any,
