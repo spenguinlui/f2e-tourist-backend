@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :themes, only: [:index, :show]
+      post "/count/addSearch", to: "count#add_search"
+      post "/count/addEnter", to: "count#add_enter"
+      post "/count/addFavorite", to: "count#add_favorite"
+      post "/count/removeFavorite", to: "count#remove_favorite"
     end
   end
 end

@@ -8,9 +8,14 @@ class Api::V1::ThemesController < ApplicationController
   def show
     begin
       @theme = Theme.find(params[:id])
-      render json: @theme, status: 200
+      render json: @theme.to_json, status: 200
     rescue
       render json: { error: "theme not found!" }
     end
+  end
+
+  # 這邊要設定權限
+  def edit
+
   end
 end

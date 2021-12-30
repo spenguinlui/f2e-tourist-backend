@@ -1,0 +1,2 @@
+class LocalItem < ApplicationRecord
+end

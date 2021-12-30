@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_28_015127) do
+ActiveRecord::Schema.define(version: 2021_12_30_041825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "local_items", force: :cascade do |t|
+    t.string "ptx_data_id", null: false
+    t.string "ptx_data_type"
+    t.text "feature"
+    t.integer "search_count", default: 0
+    t.integer "enter_count", default: 0
+    t.integer "favorite_count", default: 0
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "themes", force: :cascade do |t|
     t.string "theme_name", null: false
