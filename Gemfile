@@ -47,3 +47,6 @@ gem 'dotenv-rails', '~> 2.7.6'
 
 # user
 gem 'devise'
+
+# zh-TW
+gem 'rails-i18n'
