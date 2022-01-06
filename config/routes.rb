@@ -9,6 +9,9 @@ Rails.application.routes.draw do
       post "/count/addFavorite", to: "count#add_favorite"
       post "/count/removeFavorite", to: "count#remove_favorite"
       resources :hots, only: [:index]
+      namespace :user do
+        resources :favorites # :id 的路由無關，會在用 auth_token 找 user
+      end
 
       devise_for :users,
         defaults: { format: :json },

@@ -1,27 +1,35 @@
 # frozen_string_literal: true
 
-class SessionsController < Devise::SessionsController
-  # before_action :configure_sign_in_params, only: [:create]
+class SessionsController < ApplicationController
+  before_action :authenticate_user_token, only: [:destroy]
 
-  # GET /resource/sign_in
-  # def new
-    # super
-  # end
+  def create
+    if valid_user?
+      render json: { message: "OK", auth_token: @user.auth_token, favorites: @user.favorites }, status: 200
+    else
+      render json: { message: "無效的電子信箱或密碼" }, status: 401
+    end
+  end
 
-  # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def destroy
+    begin
+      @user.regenerate_auth_token
+      render json: { message: "OK" }, status: 200
+    rescue Exception => e
+      render json: { message: e }, status: 400
+    end
+  end
 
-  # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+  private
 
-  # protected
+  def sign_in_params
+    params.permit(:email, :password)
+  end
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_in_params
-  #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-  # end
+  def valid_user?
+    @user = User.find_by(email: params[:email])
+    return false if @user.blank?
+
+    @user.valid_password?(params[:password])
+  end
 end

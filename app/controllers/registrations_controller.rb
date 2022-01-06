@@ -15,9 +15,9 @@ class RegistrationsController < Devise::RegistrationsController
     begin
       resource.save!
       sign_up(resource_name, resource) if resource.persisted?
-      render json: "成功加入會員", status: 200
+      render json: { message: "成功加入會員", auth_token: resource.auth_token }, status: 200
     rescue Exception => e
-      render json: e, status: 400
+      render json: e, status: 200 # 開發時先設定 200
     end
   end
 
