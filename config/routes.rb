@@ -10,7 +10,8 @@ Rails.application.routes.draw do
       post "/count/removeFavorite", to: "count#remove_favorite"
       resources :hots, only: [:index]
       namespace :user do
-        resources :favorites # :id 的路由無關，會在用 auth_token 找 user
+        post "/favorites", to: "favorites#index"
+        patch "/favorite/update", to: "favorites#update"
       end
 
       devise_for :users,

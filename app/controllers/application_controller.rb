@@ -9,6 +9,9 @@ class ApplicationController < ActionController::API
   protected
 
   def authenticate_user_token
+    puts "auth_token"
+    puts params[:auth_token]
+    puts @user
     @user = User.find_by(auth_token: params[:auth_token])
     return render(json: { message:'無效的 auth_token' }, status: 401) if @user.nil?
 
