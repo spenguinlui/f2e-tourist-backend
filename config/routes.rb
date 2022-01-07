@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         post "/favorites", to: "favorites#index"
         patch "/favorite/update", to: "favorites#update"
       end
+      resources :local_item, only: [:show]
 
       devise_for :users,
         defaults: { format: :json },

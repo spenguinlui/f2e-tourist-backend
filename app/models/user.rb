@@ -6,6 +6,8 @@ class User < ApplicationRecord
   
   has_secure_token :auth_token
 
+  has_many :comments
+
   before_create { self.regenerate_auth_token if auth_token.blank? }
 
 end
