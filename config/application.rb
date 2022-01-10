@@ -36,8 +36,5 @@ module F2eTouristBackend
     config.i18n.default_locale = "zh-TW"
 
     config.autoload_paths << Rails.root.join('app', 'lib')
-
-    # config.middleware.use ActionDispatch::Cookies
-    # config.middleware.use ActionDispatch::Session::CookieStore
   end
 end

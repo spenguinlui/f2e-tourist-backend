@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RegistrationsController < Devise::RegistrationsController
+class Api::V1::User::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
@@ -10,7 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create
+  def sign_up
     build_resource(user_params)
     begin
       resource.save!

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :suppliers
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   namespace :api, defaults: { format: :json } do
@@ -8,21 +9,25 @@ Rails.application.routes.draw do
       post "/count/addEnter", to: "count#add_enter"
       post "/count/addFavorite", to: "count#add_favorite"
       post "/count/removeFavorite", to: "count#remove_favorite"
+
       resources :hots, only: [:index]
+
       namespace :user do
+        post "/sign_in", to: "sessions#sign_in"
+        post "/sign_out", to: "sessions#sign_out"
+        post "/sign_up", to: "registrations#sign_up"
         post "/favorites", to: "favorites#index"
         patch "/favorite/update", to: "favorites#update"
       end
-
+      
       get "/local_item/:id", to: "local_item#show"
       post "/local_item/:id/comment", to: "local_item#create_comment"
 
-      devise_for :users,
-        controllers: {
-          sessions: 'sessions',
-          registrations: 'registrations',
-          passwords: 'passwords'
-        }
+      namespace :supplier do
+        post "/check", to: "sessions#check"
+        post "/sign_in", to: "sessions#sign_in"
+        post "/sign_out", to: "sessions#sign_out"
+      end
     end
   end
 end

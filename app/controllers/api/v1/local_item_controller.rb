@@ -16,7 +16,13 @@ class Api::V1::LocalItemController < ApplicationController
       @new_local_item.user_id = @user.id
 
       @new_local_item.save!
-      render json: { success: "OK" }, status: 200
+
+      # research
+      @local_item = LocalItem.find_by(ptx_data_id: params[:id])
+      @average_score = get_average_score(@local_item.comments)
+      @comments =  @local_item.comments
+
+      render json: { comments: @comments, average_score: @average_score }, status: 200
     rescue Exception => e
       render json: { error: e }, status: 400
     end

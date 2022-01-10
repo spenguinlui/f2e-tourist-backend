@@ -1,6 +1,4 @@
-class Api::V1::User::FavoritesController < ApplicationController
-  before_action :authenticate_user_token
-  
+class Api::V1::User::FavoritesController < Api::V1::User::UserController
   def index
     render json: { message: "取得 favorites 成功", favorites: @user.favorites }, status: 200
   end

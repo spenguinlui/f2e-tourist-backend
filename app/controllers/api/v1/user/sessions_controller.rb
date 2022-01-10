@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class SessionsController < ApplicationController
+class Api::V1::User::SessionsController < ApplicationController
   before_action :authenticate_user_token, only: [:destroy]
 
-  def create
+  def sign_in
     if valid_user?
       render json: { message: "OK", auth_token: @user.auth_token, favorites: @user.favorites }, status: 200
     else
@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  def destroy
+  def sign_out
     begin
       @user.regenerate_auth_token
       render json: { message: "OK" }, status: 200
@@ -22,8 +22,8 @@ class SessionsController < ApplicationController
 
   private
 
-  def sign_in_params
-    params.permit(:email, :password)
+  def user_params
+    params.permit(:email, :password, :name)
   end
 
   def valid_user?
