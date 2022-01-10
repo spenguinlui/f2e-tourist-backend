@@ -17,3 +17,5 @@ Theme.create(theme_name: "回憶古早味", theme_tags: ["古早", "擔仔麵", 
 Theme.create(theme_name: "年度活動", theme_tags: ["一年一度", "年度"])
 Theme.create(theme_name: "品嚐日本風", theme_tags: ["壽司", "拉麵", "大阪燒"])
 Theme.create(theme_name: "放鬆度假去！", theme_tags: ["民宿", "放鬆", "度假"])
+
+User.create(email: "anonymous@aaa.bb", password: "xxxzzz")

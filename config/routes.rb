@@ -13,10 +13,11 @@ Rails.application.routes.draw do
         post "/favorites", to: "favorites#index"
         patch "/favorite/update", to: "favorites#update"
       end
-      resources :local_item, only: [:show]
+
+      get "/local_item/:id", to: "local_item#show"
+      post "/local_item/:id/comment", to: "local_item#create_comment"
 
       devise_for :users,
-        defaults: { format: :json },
         controllers: {
           sessions: 'sessions',
           registrations: 'registrations',
