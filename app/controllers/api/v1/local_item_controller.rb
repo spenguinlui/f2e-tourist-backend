@@ -2,7 +2,7 @@ class Api::V1::LocalItemController < ApplicationController
 
   def show
     @local_item = LocalItem.joins(:comments).find_by(ptx_data_id: params[:id])
-    @average_score = @local_item.present? ? get_average_score(@local_item.comments) : 3.5 # 這是預設分數
+    @average_score = @local_item.present? ? @local_item.average_score : 3.5 # 這是預設分數
     @comments = @local_item.present? ? @local_item.comments : []
 
     render json: { local_item: @local_item, comments: @comments, average_score: @average_score }, status: 200
@@ -19,24 +19,28 @@ class Api::V1::LocalItemController < ApplicationController
 
       # research
       @local_item = LocalItem.find_by(ptx_data_id: params[:id])
-      @average_score = get_average_score(@local_item.comments)
-      @comments =  @local_item.comments
 
-      render json: { comments: @comments, average_score: @average_score }, status: 200
+      render json: { comments: @local_item.comments, average_score:  @local_item.average_score }, status: 200
     rescue Exception => e
       render json: { error: e }, status: 400
     end
-    
+  end
+
+  def average_scores
+    average_scores = []
+    LocalItem.includes(:comments).where(ptx_data_id: params[:ids]).find_each do |local_item|
+      average_scores << {
+        id: local_item.ptx_data_id,
+        average_score: local_item.average_score,
+      }
+    end
+    render json: { average_scores: average_scores }, status: 200
   end
 
   private
 
   def comment_params
     params.permit(:title, :score, :content)
-  end
-
-  def get_average_score comments
-    comments.reduce(0) {|start, comment| start + comment.score } / comments.length
   end
 
   def get_user auth_token

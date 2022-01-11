@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
       namespace :user do
         post "/sign_in", to: "sessions#sign_in"
-        post "/sign_out", to: "sessions#sign_out"
+        delete "/sign_out", to: "sessions#sign_out"
         post "/sign_up", to: "registrations#sign_up"
         post "/favorites", to: "favorites#index"
         patch "/favorite/update", to: "favorites#update"
@@ -22,7 +22,8 @@ Rails.application.routes.draw do
       
       get "/local_item/:id", to: "local_item#show"
       post "/local_item/:id/comment", to: "local_item#create_comment"
-
+      post "/local_items/average_scores", to: "local_item#average_scores"
+      
       namespace :supplier do
         post "/check", to: "sessions#check"
         post "/sign_in", to: "sessions#sign_in"
