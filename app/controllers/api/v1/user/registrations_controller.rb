@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-class Api::V1::User::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+class Api::V1::User::RegistrationsController < Api::V1::User::UserController
+  before_action :authenticate_user_token, except: [:sign_up]
 
   # GET /resource/sign_up
   # def new
@@ -11,13 +10,11 @@ class Api::V1::User::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def sign_up
-    build_resource(user_params)
     begin
-      resource.save!
-      sign_up(resource_name, resource) if resource.persisted?
-      render json: { message: "成功加入會員", auth_token: resource.auth_token }, status: 200
+      @user = User.create(user_params)
+      render json: { message: "成功加入會員", auth_token: @user.auth_token }, status: 200
     rescue Exception => e
-      render json: e, status: 200 # 開發時先設定 200
+      render json: e, status: 400
     end
   end
 

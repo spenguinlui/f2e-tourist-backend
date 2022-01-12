@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::User::SessionsController < ApplicationController
-  before_action :authenticate_user_token, only: [:destroy]
+class Api::V1::User::SessionsController < Api::V1::User::UserController
 
   def sign_in
     if valid_user?
