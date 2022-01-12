@@ -1,5 +1,4 @@
 class Api::V1::Supplier::SupplierController < ApplicationController
-  before_action :authenticate_supplier_token
 
   private
 

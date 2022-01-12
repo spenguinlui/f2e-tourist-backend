@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::Supplier::SessionsController < ApplicationController
-  before_action :authenticate_supplier_token, only: [:destroy]
+  before_action :authenticate_supplier_token, only: [:sign_out]
 
   def check
     @supplier = Supplier.find_by(auth_token: params[:auth_token])
@@ -20,7 +20,7 @@ class Api::V1::Supplier::SessionsController < ApplicationController
     end
   end
 
-  def destroy
+  def sign_out
     begin
       @supplier.regenerate_auth_token
       render json: { message: "OK" }, status: 200

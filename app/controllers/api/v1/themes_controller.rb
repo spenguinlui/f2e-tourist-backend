@@ -13,9 +13,4 @@ class Api::V1::ThemesController < ApplicationController
       render json: { error: "theme not found!" }
     end
   end
-
-  # 這邊要設定權限
-  def edit
-
-  end
 end
