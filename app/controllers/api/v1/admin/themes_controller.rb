@@ -52,10 +52,4 @@ class Api::V1::Admin::ThemesController < Api::V1::Admin::AdminController
       render json: { error: e }, status: 400
     end
   end
-
-  private
-
-  def theme_params
-    params.permit(:theme_name, :theme_tags)
-  end
 end

@@ -5,9 +5,9 @@ class Api::V1::HotsController < ApplicationController
       top = params[:top] || 30
       skip = params[:skip] || 0
 
-      search_weight = 0.1
-      enter_weight = 1
-      favorite_weight = 1.5
+      search_weight = Setting.find(1).attribute_value.to_i
+      enter_weight = Setting.find(2).attribute_value.to_i
+      favorite_weight = Setting.find(3).attribute_value.to_i
 
       local_item = LocalItem.order("(search_count * #{search_weight}) + (enter_count * #{enter_weight}) + (favorite_count * #{favorite_weight}) DESC").offset(skip).limit(top)
 

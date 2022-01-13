@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  devise_for :admins
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   namespace :api, defaults: { format: :json } do
@@ -35,6 +34,10 @@ Rails.application.routes.draw do
         post "/sign_in", to: "sessions#sign_in"
         post "/sign_out", to: "sessions#sign_out"
         resources :themes
+        resources :users
+        post "userslist", to: "users#index"
+        post "setting", to: "setting#index"
+        patch "setting/:id", to: "setting#update"
       end
     end
   end
