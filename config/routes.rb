@@ -38,6 +38,7 @@ Rails.application.routes.draw do
         post "userslist", to: "users#index"
         post "setting", to: "setting#index"
         patch "setting/:id", to: "setting#update"
+        post "supplierlist", to: "supplier#index"
       end
     end
   end

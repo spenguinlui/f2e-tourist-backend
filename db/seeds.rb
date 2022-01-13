@@ -19,3 +19,7 @@ Theme.create(theme_name: "品嚐日本風", theme_tags: ["壽司", "拉麵", "�
 Theme.create(theme_name: "放鬆度假去！", theme_tags: ["民宿", "放鬆", "度假"])
 
 User.create(email: "anonymous@aaa.bb", password: "xxxzzz")
+
+Setting.create(attribute_name: "search_weight", attribute_value: "0.1")
+Setting.create(attribute_name: "favorite_weight", attribute_value: "1.5")
+Setting.create(attribute_name: "enter_weight", attribute_value: "1")
