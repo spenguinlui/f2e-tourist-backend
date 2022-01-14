@@ -28,11 +28,16 @@ https://spenguinlui.github.io/f2e-tourist-frontend
 
 # 系統版本
 
-ruby 2.6.6
-rails 6.0.0
+- ruby 2.6.6
+- rails 6.0.0
 
-postgreSQL 2.4.4
-devise 4.8.1
-rack-cors 1.1.1
-rails-i18n 7.0.1
-dotenv 2.7.6
+## DB
+
+- postgreSQL 2.4.4
+
+## gem
+
+- devise 4.8.1
+- rack-cors 1.1.1
+- rails-i18n 7.0.1
+- dotenv 2.7.6
