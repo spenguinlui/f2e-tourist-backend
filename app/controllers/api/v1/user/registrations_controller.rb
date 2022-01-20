@@ -18,6 +18,10 @@ class Api::V1::User::RegistrationsController < Api::V1::User::UserController
     end
   end
 
+  # def omniauth_sign_up
+  #   provider_data
+  # end
+
   # GET /resource/edit
   # def edit
   #   super

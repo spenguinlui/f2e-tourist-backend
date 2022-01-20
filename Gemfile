@@ -50,3 +50,11 @@ gem 'devise'
 
 # zh-TW
 gem 'rails-i18n'
+
+# http
+gem 'httparty', '~> 0.20.0'
+
+# oauth
+gem 'omniauth', '>= 1.0.0'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'

@@ -17,6 +17,9 @@ Rails.application.routes.draw do
         post "/sign_up", to: "registrations#sign_up"
         post "/favorites", to: "favorites#index"
         patch "/favorite/update", to: "favorites#update"
+        post "/sign_in_by_google", to: "sessions#google_oauth2"
+        # post "/sign_in_by_facebook", to: "sessions#facebook"
+        # post "/omniauth_sign_up", to: "registrations#omniauth_sign_up"
       end
       
       get "/local_item/:id", to: "local_item#show"

@@ -1,5 +1,4 @@
 class Api::V1::User::UserController < ApplicationController
-  before_action :authenticate_user_token
 
   private
 
