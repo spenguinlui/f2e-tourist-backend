@@ -65,12 +65,11 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
   def get_token_by_onetime_code(code)
     @client_id = ENV["GOOGLE_CLIENT_ID"]
     @client_secret = ENV["GOOGLE_CLIENT_SECRET"]
-    redirect_uri = 'postmessage'
     grant_type = 'authorization_code'
     load = {
       client_id: @client_id,
       client_secret: @client_secret,
-      redirect_uri: redirect_uri,
+      redirect_uri: 'postmessage',
       grant_type: grant_type,
       code: code
     }
@@ -87,6 +86,7 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
       client_id: @client_id,
       client_secret: @client_secret,
       token_type: "Bearer",
+      redirect_uri: 'postmessage',
       access_token: access_token,
       id_token: id_token
     }
