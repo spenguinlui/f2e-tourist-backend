@@ -29,11 +29,16 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
     if not code.blank?
       begin
         response = get_token_by_onetime_code(code)
-        
+        puts "--------第一次 token response"
+        puts response.parsed_response
+
         access_token = response.parsed_response["access_token"]
         id_token = response.parsed_response["id_token"]
         
         email_response = get_info_by_token(access_token, id_token)
+
+        puts "--------第二次 token response"
+        puts email_response.parsed_response
         @user = User.create_user_for_google(email_response.parsed_response)
 
         @tokens = @user.auth_token  if @user.persisted?     
