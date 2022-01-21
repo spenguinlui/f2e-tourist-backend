@@ -18,7 +18,7 @@ Rails.application.routes.draw do
         post "/favorites", to: "favorites#index"
         patch "/favorite/update", to: "favorites#update"
         post "/sign_in_by_google", to: "sessions#google_oauth2"
-        # post "/sign_in_by_facebook", to: "sessions#facebook"
+        post "/sign_in_by_facebook", to: "sessions#facebook"
         # post "/omniauth_sign_up", to: "registrations#omniauth_sign_up"
       end
       

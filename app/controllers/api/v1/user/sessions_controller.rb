@@ -52,7 +52,39 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
   end
 
   def facebook
+    code = params[:code]
+    if not code.blank?
+      begin
+        # 取得長期 token
+        load = {
+          client_id: ENV["FACEBOOK_CLIENT_ID"],
+          client_secret: ENV["FACEBOOK_CLIENT_SECRET"],
+          grant_type: 'fb_exchange_token',
+          fb_exchange_token: code
+        }
+        url = "https://graph.facebook.com/oauth/access_token"
+        response = HTTParty.post(url, :query => load)
+        puts "--------第一次 token response"
+        puts response.parsed_response
+        access_token = response.parsed_response["access_token"]
 
+        # 取得個人資訊
+        user_url = "https://graph.facebook.com/#{params[:userId]}?fields=id,name,email,picture&access_token=#{access_token}"
+        user_response = HTTParty.get(user_url)
+        puts "--------第二次 token response"
+        puts user_response.parsed_response
+
+        # 找尋 user 或建立
+        @user = User.create_user_for_google(user_response.parsed_response)
+        @tokens = @user.auth_token  if @user.persisted?
+
+        render json: { token: @tokens }, status: 200
+      rescue Exception => e
+        render json: { message: e }, status: 400
+      end
+    else
+      render json: { message: "無參數傳入" }, status: 400
+    end
   end
 
   private

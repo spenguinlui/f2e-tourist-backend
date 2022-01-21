@@ -22,4 +22,16 @@ class User < ApplicationRecord
     end
   end
 
+  def self.create_user_for_facebook(data)
+    where(uid: data["id"]).first_or_initialize.tap do |user|
+      user.provider = "facebook"
+      user.uid = data["id"]
+      user.name = data["name"]
+      user.email = data["email"]
+      user.password = Devise.friendly_token[0, 20]
+      user.password_confirmation = user.password
+      user.save!
+    end
+  end
+
 end
