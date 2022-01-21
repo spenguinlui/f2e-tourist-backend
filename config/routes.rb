@@ -29,7 +29,7 @@ Rails.application.routes.draw do
       namespace :supplier do
         post "/check", to: "sessions#check"
         post "/sign_in", to: "sessions#sign_in"
-        post "/sign_out", to: "sessions#sign_out"
+        delete "/sign_out", to: "sessions#sign_out"
       end
 
       namespace :admin do

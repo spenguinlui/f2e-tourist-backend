@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::Supplier::SessionsController < ApplicationController
+class Api::V1::Supplier::SessionsController < Api::V1::Supplier::SupplierController
   before_action :authenticate_supplier_token, only: [:sign_out]
 
   def check
