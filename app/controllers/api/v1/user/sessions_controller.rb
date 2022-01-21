@@ -23,6 +23,16 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
     end
   end
 
+  def check
+    @user = User.find_by(auth_token: params[:auth_token])
+    if @user.nil?
+      render json: { message:'無效的 auth_token' }, status: 400
+    else
+      @user.regenerate_auth_token
+      render json: { auth_token: @user.auth_token }, status: 200
+    end
+  end
+
   def google_oauth2
     code = params[:code]
 
