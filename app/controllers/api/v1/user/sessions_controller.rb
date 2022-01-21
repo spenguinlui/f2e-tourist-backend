@@ -29,7 +29,7 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
       render json: { message:'無效的 auth_token' }, status: 400
     else
       @user.regenerate_auth_token
-      render json: { auth_token: @user.auth_token }, status: 200
+      render json: { auth_token: @user.auth_token, favorites: @user.favorites }, status: 200
     end
   end
 
