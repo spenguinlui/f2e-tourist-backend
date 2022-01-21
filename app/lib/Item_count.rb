@@ -75,6 +75,8 @@ class ItemCount
       LocalItem.create!(ptx_data_id: id, enter_count: 1)
     when "add_favorite"
       LocalItem.create!(ptx_data_id: id, favorite_count: 1)
+    when "remove_favorite"
+      LocalItem.create!(ptx_data_id: id, favorite_count: 0)
     end
   end
 
