@@ -28,6 +28,10 @@ gem 'rack-cors'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  
+  # repec
+  gem 'rspec-rails', '~> 4.0.1'
+  gem 'rails-controller-testing', '~> 1.0.5'
 end
 
 group :development do
@@ -38,6 +42,7 @@ group :development do
   # console
   gem 'awesome_print', '~> 1.8'
 end
+
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

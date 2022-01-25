@@ -9,12 +9,22 @@ class ItemCount
   end
 
   def check_body
-    unless body_string = get_body_string(@body)
+    unless @body.length > 2 # \"\"
       @json = '無內容請求'
+      return
     end
 
-    unless @ids = get_ids(body_string)
+    @ids = get_ids(@body)
+    unless @ids.instance_of? Array
+      @json = '必須是陣列'
+      return
+    end
+    
+    not_ptx_id = true
+    @ids.map { |id| not_ptx_id = false if id.match(/\A[C]+[1-4]{1}_{1}\d/).nil? }
+    unless not_ptx_id
       @json = '必須是 PTX ID 陣列'
+      return
     end
   end
 
@@ -24,7 +34,6 @@ class ItemCount
         local_item = LocalItem.find_by_ptx_data_id(id)
         local_item.present? ? update_count!(local_item, type) : create_count!(id, type)
       end
-      @json = '次數更改成功'
       @status = 200
     rescue Exception => e
       Rails.logger.error e
@@ -33,15 +42,6 @@ class ItemCount
   end
 
   private
-
-  def get_body_string(body)
-    begin
-      body.string
-    rescue Exception => e
-      Rails.logger.error e
-      nil
-    end
-  end
 
   def get_ids(body_string)
     begin
@@ -61,10 +61,11 @@ class ItemCount
     when "add_favorite"
       local_item.update!(favorite_count: local_item.favorite_count + 1)
     when "remove_favorite"
-      if local_item.favorite_count > 1
+      if local_item.favorite_count >= 1
         local_item.update!(favorite_count: local_item.favorite_count - 1)
       end
     end
+    @json = '次數更新成功'
   end
 
   def create_count!(id, type)
@@ -78,6 +79,7 @@ class ItemCount
     when "remove_favorite"
       LocalItem.create!(ptx_data_id: id, favorite_count: 0)
     end
+    @json = '次數新增成功'
   end
 
 end
