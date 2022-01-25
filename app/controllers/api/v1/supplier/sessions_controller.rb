@@ -3,6 +3,7 @@
 class Api::V1::Supplier::SessionsController < Api::V1::Supplier::SupplierController
   before_action :authenticate_supplier_token, only: [:sign_out]
 
+  # post
   def check
     @supplier = Supplier.find_by(auth_token: params[:auth_token])
     if @supplier.present?
@@ -12,6 +13,7 @@ class Api::V1::Supplier::SessionsController < Api::V1::Supplier::SupplierControl
     end
   end
 
+  # post
   def sign_in
     if valid_supplier?
       render json: { auth_token: @supplier.auth_token }, status: 200
@@ -20,6 +22,7 @@ class Api::V1::Supplier::SessionsController < Api::V1::Supplier::SupplierControl
     end
   end
 
+  # delete
   def sign_out
     begin
       @supplier.regenerate_auth_token

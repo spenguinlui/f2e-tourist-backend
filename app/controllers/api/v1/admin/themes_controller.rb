@@ -1,11 +1,13 @@
 class Api::V1::Admin::ThemesController < Api::V1::Admin::AdminController
   before_action :authenticate_admin_token
 
+  # post
   def index
     @themes = Theme.all
     render json: @themes, status: 200
   end
 
+  # post
   def show
     begin
       @theme = Theme.find(params[:id])
@@ -15,6 +17,7 @@ class Api::V1::Admin::ThemesController < Api::V1::Admin::AdminController
     end
   end
 
+  # post
   def create
     begin
       theme_tags = params[:theme_tags].gsub(/\s+/, "").split(',')
@@ -26,6 +29,7 @@ class Api::V1::Admin::ThemesController < Api::V1::Admin::AdminController
     end
   end
 
+  # patch
   def update
     begin
       @theme = Theme.find(params[:id])
@@ -42,6 +46,7 @@ class Api::V1::Admin::ThemesController < Api::V1::Admin::AdminController
     end
   end
 
+  # delete
   def destroy
     begin
       @theme = Theme.find(params[:id])

@@ -1,9 +1,12 @@
 class Api::V1::Admin::SettingController < Api::V1::Admin::AdminController
+
+  # post
   def index
     @settings = Setting.all
     render json: @settings, status: 200
   end
 
+  # patch
   def update
     begin
       @setting = Setting.find(params[:id])

@@ -3,6 +3,7 @@
 class Api::V1::Admin::SessionsController < Api::V1::Admin::AdminController
   before_action :authenticate_admin_token, only: [:sign_out]
 
+  # post
   def check
     @admin = Admin.find_by(auth_token: params[:auth_token])
     if @admin.present?
@@ -12,6 +13,7 @@ class Api::V1::Admin::SessionsController < Api::V1::Admin::AdminController
     end
   end
 
+  # post
   def sign_in
     if valid_admin?
       render json: { auth_token: @admin.auth_token }, status: 200
@@ -20,6 +22,7 @@ class Api::V1::Admin::SessionsController < Api::V1::Admin::AdminController
     end
   end
 
+  # post
   def sign_out
     begin
       @admin.regenerate_auth_token

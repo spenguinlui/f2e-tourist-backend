@@ -6,6 +6,7 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
   include HTTParty
   before_action :authenticate_user_token, only: [:sign_out]
 
+  # post
   def sign_in
     if valid_user?
       render json: { message: "OK", auth_token: @user.auth_token, favorites: @user.favorites }, status: 200
@@ -14,6 +15,7 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
     end
   end
 
+  # delete
   def sign_out
     begin
       @user.regenerate_auth_token
@@ -23,6 +25,7 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
     end
   end
 
+  # post
   def check
     @user = User.find_by(auth_token: params[:auth_token])
     if @user.nil?
@@ -33,6 +36,7 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
     end
   end
 
+  # post
   def google_oauth2
     code = params[:code]
 
@@ -61,6 +65,7 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
     end
   end
 
+  # post
   def facebook
     code = params[:code]
     if not code.blank?

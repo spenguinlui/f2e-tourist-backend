@@ -1,13 +1,15 @@
 class Api::V1::LocalItemController < ApplicationController
 
+  # get
   def show
-    @local_item = LocalItem.joins(:comments).find_by(ptx_data_id: params[:id])
+    @local_item = LocalItem.includes(:comments).find_by(ptx_data_id: params[:id])
     @average_score = @local_item.present? ? @local_item.average_score : 3.5 # 這是預設分數
     @comments = @local_item.present? ? @local_item.comments : []
 
     render json: { local_item: @local_item, comments: @comments, average_score: @average_score }, status: 200
   end
 
+  # post
   def create_comment
     begin
       @local_item = LocalItem.find_by(ptx_data_id: params[:id])
@@ -26,6 +28,7 @@ class Api::V1::LocalItemController < ApplicationController
     end
   end
 
+  # post
   def average_scores
     average_scores = []
     LocalItem.includes(:comments).where(ptx_data_id: params[:ids]).find_each do |local_item|
