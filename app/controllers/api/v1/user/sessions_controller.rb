@@ -4,36 +4,22 @@ require 'json'
 
 class Api::V1::User::SessionsController < Api::V1::User::UserController
   include HTTParty
+  before_action :define_model
   before_action :authenticate_user_token, only: [:sign_out]
 
   # post
   def sign_in
-    if valid_user?
-      render json: { message: "OK", auth_token: @user.auth_token, favorites: @user.favorites }, status: 200
-    else
-      render json: { message: "無效的電子信箱或密碼" }, status: 401
-    end
+    super
   end
 
   # delete
   def sign_out
-    begin
-      @user.regenerate_auth_token
-      render json: { message: "OK" }, status: 200
-    rescue Exception => e
-      render json: { message: e }, status: 400
-    end
+    super
   end
 
   # post
   def check
-    @user = User.find_by(auth_token: params[:auth_token])
-    if @user.nil?
-      render json: { message:'無效的 auth_token' }, status: 400
-    else
-      @user.regenerate_auth_token
-      render json: { auth_token: @user.auth_token, favorites: @user.favorites }, status: 200
-    end
+    super
   end
 
   # post
@@ -103,16 +89,6 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
   end
 
   private
-
-  def user_params
-    params.permit(:email, :password, :name)
-  end
-
-  def valid_user?
-    @user = User.find_by(email: params[:email])
-    return false if @user.blank?
-    @user.valid_password?(params[:password])
-  end
 
   def get_token_by_onetime_code(code)
     @client_id = ENV["GOOGLE_CLIENT_ID"]
