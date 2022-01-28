@@ -76,7 +76,7 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
         puts user_response.parsed_response
 
         # 找尋 user 或建立
-        @user = User.create_user_for_google(user_response.parsed_response)
+        @user = User.create_user_for_facebook(user_response.parsed_response)
         @tokens = @user.auth_token  if @user.persisted?
 
         render json: { token: @tokens }, status: 200
