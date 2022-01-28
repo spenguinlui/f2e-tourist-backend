@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::User::RegistrationsController < Api::V1::User::UserController
-  before_action :authenticate_user_token, except: [:sign_up]
+  before_action :authenticate_model_token, except: [:sign_up]
 
   # post
   def sign_up

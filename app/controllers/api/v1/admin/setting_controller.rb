@@ -1,4 +1,5 @@
 class Api::V1::Admin::SettingController < Api::V1::Admin::AdminController
+  before_action :authenticate_model_token
 
   # post
   def index

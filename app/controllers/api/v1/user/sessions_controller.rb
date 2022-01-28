@@ -5,7 +5,7 @@ require 'json'
 class Api::V1::User::SessionsController < Api::V1::User::UserController
   include HTTParty
   before_action :define_model
-  before_action :authenticate_user_token, only: [:sign_out]
+  before_action :authenticate_model_token, only: [:sign_out]
 
   # post
   def sign_in

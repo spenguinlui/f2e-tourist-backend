@@ -1,5 +1,5 @@
 class Api::V1::Admin::SupplierController < Api::V1::Admin::AdminController
-  before_action :authenticate_admin_token
+  before_action :authenticate_model_token
 
   # post
   def index

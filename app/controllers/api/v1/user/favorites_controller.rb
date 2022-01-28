@@ -1,5 +1,5 @@
 class Api::V1::User::FavoritesController < Api::V1::User::UserController
-  before_action :authenticate_user_token
+  before_action :authenticate_model_token
 
   # post
   def index
