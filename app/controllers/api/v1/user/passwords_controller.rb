@@ -26,7 +26,7 @@ class Api::V1::User::PasswordsController < Api::V1::User::UserController
 
         render :json => { message: "修改密碼成功", status: 200 }
       else
-        render :json => { message: "連結已失效", status: 400 }
+        render :json => { message: "連結已失效", status: 400 }, :status => :bad_request
       end
     rescue Exception => e
       logger.error "----- 修改密碼發生錯誤！！！ -> #{e}"

@@ -41,7 +41,7 @@ Rails.application.routes.draw do
       namespace :admin do
         post "/check", to: "sessions#check"
         post "/sign_in", to: "sessions#sign_in"
-        post "/sign_out", to: "sessions#sign_out"
+        delete "/sign_out", to: "sessions#sign_out"
         resources :themes
         resources :users
         post "userslist", to: "users#index"

@@ -9,11 +9,11 @@ class ApplicationController < ActionController::API
           render :json => { message: "登入成功", auth_token: @resource.auth_token, status: 200 }
         end
       else
-        render :json => { message: "無效的電子信箱或密碼", status: 401 }
+        render :json => { message: "無效的電子信箱或密碼", status: 401 }, :status => :bad_request
       end
     rescue Exception => e
       logger.error "----- 使用者登入發生錯誤！！！ -> #{e}"
-      render :json => { message: "發生不明錯誤", status: 400 }
+      render :json => { message: "發生不明錯誤", status: 400 }, :status => :bad_request
     end
   end
 
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::API
       render :json => { message: "登出成功", status: 200 }
     rescue Exception => e
       logger.error "----- 使用者登出發生錯誤！！！ -> #{e}"
-      render :json => { message: "發生不明錯誤", status: 400 }
+      render :json => { message: "發生不明錯誤", status: 400 }, :status => :bad_request
     end
   end
 
@@ -31,7 +31,7 @@ class ApplicationController < ActionController::API
     begin
       @resource = @model.find_by(auth_token: params[:auth_token])
       if @resource.nil?
-        render :json => { message: "無效的 auth_token", status: 401 }
+        render :json => { message: "無效的 auth_token", status: 401 }, :status => :bad_request
       else
         # @resource.regenerate_auth_token
         if @model == User

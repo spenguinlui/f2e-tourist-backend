@@ -44,7 +44,7 @@ class Api::V1::User::SessionsController < Api::V1::User::UserController
         render :json => { message: "發生不明錯誤", status: 500 }, :status => :bad_request
       end
     else
-      render :json => { message: "無參數傳入", status: 400 }
+      render :json => { message: "無參數傳入", status: 400 }, :status => :bad_request
     end
   end
 
