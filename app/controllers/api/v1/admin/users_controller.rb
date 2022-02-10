@@ -3,8 +3,13 @@ class Api::V1::Admin::UsersController < Api::V1::Admin::AdminController
 
   # post
   def index
-    @users = User.all
-    render json: @users, status: 200
+    begin
+      @users = User.all
+      render :json => { message: "取得廠商列表成功", users: @users, status: 200 }
+    rescue Exception => e
+      logger.error "----- 取得使用者列表發生錯誤！！！ -> #{e}"
+        render :json => { message: "發生不明錯誤", status: 500 }, :status => :bad_request
+    end
   end
 
   # post
@@ -20,10 +25,12 @@ class Api::V1::Admin::UsersController < Api::V1::Admin::AdminController
     begin
       @user = User.find(params[:id])
       @user.destroy
+      
       @users = User.all
-      render json: @users, status: 200
+      render :json => { message: "刪除使用者成功", users: @users, status: 200 }
     rescue Exception => e
-      render json: { error: e }, status: 400
+      logger.error "----- 刪除使用者發生錯誤！！！ -> #{e}"
+      render :json => { message: "發生不明錯誤", status: 500 }, :status => :bad_request
     end
   end
 end

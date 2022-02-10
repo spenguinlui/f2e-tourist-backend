@@ -8,13 +8,13 @@ class Api::V1::User::PasswordsController < Api::V1::User::UserController
         @reset_password_token = get_reset_password_token(@user)
         UserMailer.reset_password_instructions(@user, @reset_password_token).deliver_now
   
-        render json: @reset_password_token
+        render :json => { message: "忘記密碼發信成功", reset_password_token: @reset_password_token, status: 200 }
       else
-        render :json => "查無此帳號", :status => 400
+        render :json => { message: "查無此帳號", status: 400 }
       end
     rescue Exception => e
       logger.error "----- 忘記密碼連結發生錯誤！！！ -> #{e}"
-      render :json => "發生不明錯誤", :status => 500
+      render :json => { message: "發生不明錯誤", status: 500 }, :status => :bad_request
     end
   end
   
@@ -24,13 +24,13 @@ class Api::V1::User::PasswordsController < Api::V1::User::UserController
       if @user.present?
         @user.update!(password: reset_password_params[:new_password])
 
-        render json: @user
+        render :json => { message: "修改密碼成功", status: 200 }
       else
-        render :json => "連結已失效", :status => 400
+        render :json => { message: "連結已失效", status: 400 }
       end
     rescue Exception => e
       logger.error "----- 修改密碼發生錯誤！！！ -> #{e}"
-      render :json => "發生不明錯誤", :status => 500
+      render :json => { message: "發生不明錯誤", status: 500 }, :status => :bad_request
     end
   end
 
