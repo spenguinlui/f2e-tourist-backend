@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
+  # for custom user routes
+  devise_for :users, only: []
+
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :themes, only: [:index, :show]
@@ -16,6 +19,8 @@ Rails.application.routes.draw do
         post "/sign_in", to: "sessions#sign_in"
         delete "/sign_out", to: "sessions#sign_out"
         post "/sign_up", to: "registrations#sign_up"
+        post "/forget_password", to: "passwords#create"
+        post "/edit_password", to: "passwords#edit"
         post "/check", to: "sessions#check"
         post "/favorites", to: "favorites#index"
         patch "/favorite/update", to: "favorites#update"
