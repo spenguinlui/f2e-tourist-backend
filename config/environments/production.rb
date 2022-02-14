@@ -53,13 +53,13 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "f2e_tourist_backend_production"
 
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: ENV["HOST_PRO_DOMAIN"] }
   config.action_mailer.smtp_settings = {
     :address => "smtp.mailgun.org",
     :port => "587",
-    :domain => "spenguinlui.github.io",
+    :domain => ENV["HOST_PRO_DOMAIN"],
     :authentication => "plain",
     :user_name => ENV["MAILGUN_USERNAME"],
     :password => ENV["MAILGUN_PASSWORD"],
